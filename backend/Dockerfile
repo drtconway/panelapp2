@@ -5,11 +5,15 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     postgresql-client \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+
+# Update certificates
+RUN update-ca-certificates
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
 
 # Copy project
 COPY . .

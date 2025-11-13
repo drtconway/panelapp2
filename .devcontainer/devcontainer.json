@@ -1,0 +1,57 @@
+{
+  "name": "PanelApp2 Development",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "backend",
+  "workspaceFolder": "/app",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "Vue.volar",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.python"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[vue]": {
+          "editor.defaultFormatter": "Vue.volar"
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [8000, 5173, 5432, 80],
+  "portsAttributes": {
+    "8000": {
+      "label": "Django Backend"
+    },
+    "5173": {
+      "label": "Vue Frontend"
+    },
+    "5432": {
+      "label": "PostgreSQL"
+    },
+    "80": {
+      "label": "nginx"
+    }
+  },
+
+  "postCreateCommand": "pip install -r requirements.txt && python manage.py migrate",
+  
+  "remoteUser": "root"
+}
